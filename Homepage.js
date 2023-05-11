@@ -1,8 +1,10 @@
-import { StyleSheet, ScrollView, Image, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, ScrollView, Image, Text, View, StatusBar, TouchableOpacity } from 'react-native';
 import CarouselSlider from './Components/Carousel';
 import CarouselSlider2 from './Components/Carousel2';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Homepage() {
+  const navigation = useNavigation();
 
   return (
     <>
@@ -37,11 +39,13 @@ export default function Homepage() {
             }}
           /> */}
           <View style={styles.column}>
-            <Image style={{ width: 50, height: 50 }}
-              source={{
-                uri: 'https://www.madhuvan.com/wp-content/uploads/2018/01/personal-loan-icon.png',
-              }}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('personalLoan')}>
+              <Image style={{ width: 50, height: 50 }}
+                source={{
+                  uri: 'https://www.madhuvan.com/wp-content/uploads/2018/01/personal-loan-icon.png',
+                }}
+              />
+            </TouchableOpacity>
           </View>
           {/* <Image style={styles.column}
             source={{
