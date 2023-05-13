@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Image, Text, View, StatusBar } from 'react-native';
 
 
@@ -8,13 +9,14 @@ export default function ResidenceCity() {
     const navigation = useNavigation();
     const [checked, setChecked] = useState('');
 
-    function movetoResidenceTypePage() {
+   async  function movetoResidenceTypePage(cityNameChecked) {
+        await AsyncStorage.setItem('cityName', cityNameChecked);
         navigation.navigate('ResidenceType')
     }
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="blue" barStyle="dark-content" />
+            <StatusBar backgroundColor="blue" barStyle="light-content" />
             <Image
                 style={{ width: '50%', height: '5%', marginLeft: 10 }}
                 source={{
@@ -37,7 +39,7 @@ export default function ResidenceCity() {
             <View style={{ marginTop: -50 }}>
                 <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
                     <View style={styles.row}>
-                        <View style={styles.column} onTouchStart={() => (setChecked('Delhi'), movetoResidenceTypePage())}>
+                        <View style={styles.column} onTouchStart={() => (setChecked('Delhi'), movetoResidenceTypePage('Delhi'))}>
                             <View style={styles.row}>
                                 <View style={{ flex: 11 }}>
                                     <Text style={styles.radioHeading}>Delhi</Text>
@@ -47,7 +49,7 @@ export default function ResidenceCity() {
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.column} onTouchStart={() => (setChecked('Mumbai'), movetoResidenceTypePage())}>
+                        <View style={styles.column} onTouchStart={() => (setChecked('Mumbai'), movetoResidenceTypePage('Mumbai'))}>
                             <View style={styles.row}>
                                 <View style={{ flex: 11 }}>
                                     <Text style={styles.radioHeading}>Mumbai</Text>
@@ -61,7 +63,7 @@ export default function ResidenceCity() {
 
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('pune'), movetoResidenceTypePage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('pune'), movetoResidenceTypePage('pune'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>pune</Text>
@@ -71,7 +73,7 @@ export default function ResidenceCity() {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('Chennai'), movetoResidenceTypePage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('Chennai'), movetoResidenceTypePage('Chennai'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Chennai</Text>
@@ -86,7 +88,7 @@ export default function ResidenceCity() {
 
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('Bengaluru'), movetoResidenceTypePage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('Bengaluru'), movetoResidenceTypePage('Bengaluru'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Bengaluru</Text>
@@ -96,7 +98,7 @@ export default function ResidenceCity() {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('Hyderabad'), movetoResidenceTypePage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('Hyderabad'), movetoResidenceTypePage('Hyderabad'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Hyderabad</Text>
@@ -111,7 +113,7 @@ export default function ResidenceCity() {
 
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('Kolkata'), movetoResidenceTypePage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('Kolkata'), movetoResidenceTypePage('Kolkata'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Kolkata</Text>
@@ -121,7 +123,7 @@ export default function ResidenceCity() {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('Jaipur'), movetoResidenceTypePage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('Jaipur'), movetoResidenceTypePage('Jaipur'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Jaipur</Text>

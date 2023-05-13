@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Image, Text, View, StatusBar, TextInput } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StyleSheet, Image, Text, View, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 
 
 export default function EmploymentDetails() {
     const navigation = useNavigation();
     const [text, setText] = useState('');
 
-    function movetResidenceCityPage() {
-        navigation.navigate('ResidenceCity')
+    async function movetResidenceCityPage() {
+        if (text === '') {
+            alert("Please Fill the details")
+        } else {
+            await AsyncStorage.setItem('companyName', text);
+            navigation.navigate('ResidenceCity')
+        }
     }
     const handleTextChange = (text) => {
         setText(text);
@@ -17,7 +23,7 @@ export default function EmploymentDetails() {
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="blue" barStyle="dark-content" />
+            <StatusBar backgroundColor="blue" barStyle="light-content" />
             <Image
                 style={{ width: '50%', height: '5%', marginLeft: 10 }}
                 source={{
@@ -38,7 +44,7 @@ export default function EmploymentDetails() {
                 </View>
                 <View style={{ width: '100%' }}>
                     <Text>Company Name</Text>
-                    <TextInput placeholder='Enter your Company Name' onChange={()=>movetResidenceCityPage()}
+                    <TextInput placeholder='Enter your Company Name'
                         style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, }}
                         onChangeText={handleTextChange}
                         value={text}
@@ -47,6 +53,11 @@ export default function EmploymentDetails() {
                         <Text style={styles.instructions}>Type slowly to select your company</Text>
                     </View>
                 </View>
+            </View>
+            <View style={styles.bottomView}>
+                <TouchableOpacity style={styles.buttonOutside} onPress={() => movetResidenceCityPage()}>
+                    <Text style={styles.buttonInside}>Proceed</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -77,5 +88,27 @@ const styles = StyleSheet.create({
     instructions: {
         fontSize: 12,
         color: '#999',
+    },
+    bottomView: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#fff',
+        height: 50,
+        paddingHorizontal: 20,
+        marginBottom: 50
+    },
+    buttonOutside: {
+        backgroundColor: 'blue',
+        padding: 8,
+        borderRadius: 5,
+        width: '100%',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    buttonInside: {
+        color: '#fff',
+        fontSize: 17,
     },
 });

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "paisaBazar",
-    "slug": "paisaBazar",
+    "slug": "paisabazaar",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a8dc8984-3d28-4203-87ac-7a90165fd9b6"
+      }
+    },
+    "owner": "madhur_sharma026"
   }
 }

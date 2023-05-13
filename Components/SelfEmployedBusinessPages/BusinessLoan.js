@@ -17,7 +17,7 @@ export default function BusinessLoan() {
     return (
         <>
             <ScrollView style={styles.container}>
-                <StatusBar backgroundColor="blue" barStyle="dark-content" />
+            <StatusBar backgroundColor="blue" barStyle="light-content" />
                 <Image
                     style={{ width: '50%', height: '3%', marginLeft: 10 }}
                     source={{

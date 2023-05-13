@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import email from 'react-native-email'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Image, Text, View, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 
 
-export default function BestOffers() {
+export default function BestOffers({ route }) {
     const navigation = useNavigation();
     const [fullname, setFullname] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
@@ -15,9 +17,44 @@ export default function BestOffers() {
         setEmailAddress(emailAddressText);
     };
 
+    const gettingPhotoDetail = route.params;
+
+    async function formSubmit() {
+        if (fullname === "" || emailAddress === "" || gettingPhotoDetail === undefined) {
+            alert('Please Fill Your Details')
+        } else {
+            await AsyncStorage.setItem('fullname', fullname);
+            await AsyncStorage.setItem('emailAddress', emailAddress);
+            await AsyncStorage.setItem('photoDetails', gettingPhotoDetail.photo.uri);
+
+            const annualIncome = await AsyncStorage.getItem('annualIncome');
+            const bankName = await AsyncStorage.getItem('bankName');
+            const companyName = await AsyncStorage.getItem('companyName');
+            const cityName = await AsyncStorage.getItem('cityName');
+            const residenceType = await AsyncStorage.getItem('residenceType');
+            const loanAmount = await AsyncStorage.getItem('loanAmount');
+            const photoDetails = await AsyncStorage.getItem('photoDetails');
+
+
+            const to = ['madhursharma220055@gmail.com'] // string or array of email addresses
+            email(to, {
+                subject: 'New Email',
+                body: `
+                annualIncome: ${annualIncome}, 
+                bankName: ${bankName}, 
+                companyName: ${companyName}, 
+                cityName: ${cityName}, 
+                residenceType: ${residenceType}, 
+                loanAmount: ${loanAmount}, 
+                photoDetails: ${photoDetails}
+                `
+            }).catch(console.error)
+        }
+    }
+
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="blue" barStyle="dark-content" />
+            <StatusBar backgroundColor="blue" barStyle="light-content" />
             <Image
                 style={{ width: '50%', height: '5%', marginLeft: 10 }}
                 source={{
@@ -43,16 +80,31 @@ export default function BestOffers() {
                         onChangeText={handleFullnameChange}
                         value={fullname}
                     />
-                    <Text style={{ marginTop: 20 }}>Company Name</Text>
+                    <Text style={{ marginTop: 20 }}>Your Email</Text>
                     <TextInput placeholder='username@examplemail.com'
                         style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, }}
                         onChangeText={handleEmailAddressChange}
                         value={emailAddress}
                     />
+                    <View style={{ marginTop: 20 }}>
+                        {(gettingPhotoDetail !== undefined) ?
+                            <Image
+                                style={{ width: 100, height: 100 }}
+                                source={{
+                                    uri: `${gettingPhotoDetail.photo.uri}`,
+                                }}
+                            />
+                            :
+                            <></>
+                        }
+                        <TouchableOpacity style={styles.uploadButtonOutside} onPress={() => navigation.navigate('CameraScreen')}>
+                            <Text style={styles.uploadButtonInside}>Upload PAN</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
             <View style={styles.bottomView}>
-                <TouchableOpacity style={styles.buttonOutside} onPress={()=>navigation.navigate('Homepage')}>
+                <TouchableOpacity style={styles.buttonOutside} onPress={() => formSubmit()}>
                     <Text style={styles.buttonInside}>Unlock Best Offers</Text>
                 </TouchableOpacity>
             </View>
@@ -88,6 +140,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginBottom: 50
     },
+    uploadButtonOutside: {
+        backgroundColor: 'gray',
+        padding: 5,
+        borderRadius: 5,
+        width: '50%',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    uploadButtonInside: {
+        color: '#fff',
+        fontSize: 17,
+    },
     buttonOutside: {
         backgroundColor: 'blue',
         padding: 8,
@@ -101,3 +165,4 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
 });
+

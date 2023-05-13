@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Image, Text, View, StatusBar } from 'react-native';
 
 
@@ -8,13 +9,14 @@ export default function ResidenceType() {
     const navigation = useNavigation();
     const [checked, setChecked] = useState('');
 
-    function movetoLoanAmountPage() {
+    async function movetoLoanAmountPage(residenceTypeChecked) {
+        await AsyncStorage.setItem('residenceType', residenceTypeChecked);
         navigation.navigate('LoanAmount')
     }
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="blue" barStyle="dark-content" />
+        <StatusBar backgroundColor="blue" barStyle="light-content" />
             <Image
                 style={{ width: '50%', height: '5%', marginLeft: 10 }}
                 source={{
@@ -37,7 +39,7 @@ export default function ResidenceType() {
             <View style={{ marginTop: -50 }}>
                 <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
                     <View style={styles.row}>
-                        <View style={styles.column} onTouchStart={() => (setChecked('OwnedBySelfORSpouse'), movetoLoanAmountPage())}>
+                        <View style={styles.column} onTouchStart={() => (setChecked('OwnedBySelfORSpouse'), movetoLoanAmountPage('OwnedBySelfORSpouse'))}>
                             <View style={styles.row}>
                                 <View style={{ flex: 1 }}>
                                     <Text style={styles.radioHeading}>Owned by Self / Spouse</Text>
@@ -50,7 +52,7 @@ export default function ResidenceType() {
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('OwnedByParentsORSiblings'), movetoLoanAmountPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('OwnedByParentsORSiblings'), movetoLoanAmountPage('OwnedByParentsORSiblings'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Owned by Parents / Siblings</Text>
@@ -64,7 +66,7 @@ export default function ResidenceType() {
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('RentedWithFamilyORStayingAlone'), movetoLoanAmountPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('RentedWithFamilyORStayingAlone'), movetoLoanAmountPage('RentedWithFamilyORStayingAlone'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Rented With Family / Staying Alone</Text>
@@ -78,7 +80,7 @@ export default function ResidenceType() {
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('PayingGuestORHostel'), movetoLoanAmountPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('PayingGuestORHostel'), movetoLoanAmountPage('PayingGuestORHostel'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Paying Guest / Hostel</Text>
@@ -92,7 +94,7 @@ export default function ResidenceType() {
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('CompanyProvided'), movetoLoanAmountPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('CompanyProvided'), movetoLoanAmountPage('CompanyProvided'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>Company Provided</Text>

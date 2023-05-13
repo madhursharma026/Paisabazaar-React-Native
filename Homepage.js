@@ -39,7 +39,7 @@ export default function Homepage() {
             }}
           /> */}
           <View style={styles.column}>
-            <TouchableOpacity onPress={() => navigation.navigate('personalLoan')}>
+            <TouchableOpacity onPress={() => navigation.navigate('PersonalLoan')}>
               <Image style={{ width: 50, height: 50 }}
                 source={{
                   uri: 'https://www.madhuvan.com/wp-content/uploads/2018/01/personal-loan-icon.png',

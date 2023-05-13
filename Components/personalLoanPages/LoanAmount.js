@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Image, Text, View, StatusBar } from 'react-native';
 
 
@@ -8,13 +9,14 @@ export default function LoanAmount() {
     const navigation = useNavigation();
     const [checked, setChecked] = useState('');
 
-    function movetoBestOfferPage() {
+    async function movetoBestOfferPage(loanAmountChecked) {
+        await AsyncStorage.setItem('loanAmount', loanAmountChecked);
         navigation.navigate('BestOffers')
     }
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="blue" barStyle="dark-content" />
+        <StatusBar backgroundColor="blue" barStyle="light-content" />
             <Image
                 style={{ width: '50%', height: '5%', marginLeft: 10 }}
                 source={{
@@ -35,7 +37,7 @@ export default function LoanAmount() {
             <View style={{ marginTop: -50 }}>
                 <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
                     <View style={styles.row}>
-                        <View style={styles.column} onTouchStart={() => (setChecked('3Lac'), movetoBestOfferPage())}>
+                        <View style={styles.column} onTouchStart={() => (setChecked('3Lac'), movetoBestOfferPage('3Lac'))}>
                             <View style={styles.row}>
                                 <View style={{ flex: 11 }}>
                                     <Text style={styles.radioHeading}>UpTo {"\u20B9"}3 Lac</Text>
@@ -45,7 +47,7 @@ export default function LoanAmount() {
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.column} onTouchStart={() => (setChecked('3to4Lac'), movetoBestOfferPage())}>
+                        <View style={styles.column} onTouchStart={() => (setChecked('3to4Lac'), movetoBestOfferPage('3to4Lac'))}>
                             <View style={styles.row}>
                                 <View style={{ flex: 11 }}>
                                     <Text style={styles.radioHeading}>UpTo {"\u20B9"}3-4 Lac</Text>
@@ -59,7 +61,7 @@ export default function LoanAmount() {
 
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('4to5Lac'), movetoBestOfferPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('4to5Lac'), movetoBestOfferPage('4to5Lac'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>UpTo {"\u20B9"}4-5 Lac</Text>
@@ -69,7 +71,7 @@ export default function LoanAmount() {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('5to10Lac'), movetoBestOfferPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('5to10Lac'), movetoBestOfferPage('5to10Lac'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>UpTo {"\u20B9"}5-10 Lac</Text>
@@ -84,7 +86,7 @@ export default function LoanAmount() {
 
                     <View style={{ marginTop: 40 }}>
                         <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('10to15Lac'), movetoBestOfferPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('10to15Lac'), movetoBestOfferPage('10to15Lac'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 15 }}>
                                         <Text style={styles.radioHeading}>UpTo {"\u20B9"}10-15 Lac</Text>
@@ -94,13 +96,13 @@ export default function LoanAmount() {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('15+Lac'), movetoBestOfferPage())}>
+                            <View style={styles.column} onTouchStart={() => (setChecked('15PlusLac'), movetoBestOfferPage('15PlusLac'))}>
                                 <View style={styles.row}>
                                     <View style={{ flex: 11 }}>
                                         <Text style={styles.radioHeading}>UpTo {"\u20B9"}15+ Lac</Text>
                                     </View>
                                     <View style={{ flex: 4.5, marginTop: -15, marginLeft: -40 }}>
-                                        <RadioButton.Item value="15+Lac" />
+                                        <RadioButton.Item value="15PlusLac" />
                                     </View>
                                 </View>
                             </View>

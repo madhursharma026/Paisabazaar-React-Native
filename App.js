@@ -2,7 +2,7 @@ import Login from './Login';
 import Homepage from './Homepage';
 import FirstPage from './FirstPage';
 import { LogBox } from 'react-native';
-import personalLoan from './personalLoan';
+import PersonalLoan from './PersonalLoan';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoanAmount from './Components/personalLoanPages/LoanAmount';
@@ -13,6 +13,7 @@ import ResidenceType from './Components/personalLoanPages/ResidenceType';
 import BankSelectPage from './Components/personalLoanPages/BankSelectPage';
 import BusinessLoan from './Components/SelfEmployedBusinessPages/BusinessLoan';
 import EmploymentDetails from './Components/personalLoanPages/EmploymentDetails';
+import CameraScreen from './Components/personalLoanPages/CameraScreen';
 
 LogBox.ignoreAllLogs();
 
@@ -25,7 +26,7 @@ export default function App() {
         <Stack.Screen name="FirstPage" component={FirstPage} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Homepage" component={Homepage} options={{ headerShown: false }} />
-        <Stack.Screen name="personalLoan" component={personalLoan} options={{ headerShown: false }} />
+        <Stack.Screen name="PersonalLoan" component={PersonalLoan} options={{ headerShown: false }} />
         <Stack.Screen name="SalariedPage" component={SalariedPage} options={{ headerShown: false }} />
         <Stack.Screen name="BankSelectPage" component={BankSelectPage} options={{ headerShown: false }} />
         <Stack.Screen name="EmploymentDetails" component={EmploymentDetails} options={{ headerShown: false }} />
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name="LoanAmount" component={LoanAmount} options={{ headerShown: false }} />
         <Stack.Screen name="BestOffers" component={BestOffers} options={{ headerShown: false }} />
         <Stack.Screen name="BusinessLoan" component={BusinessLoan} options={{ headerShown: false }} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

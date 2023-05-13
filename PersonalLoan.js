@@ -1,22 +1,28 @@
 import { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Image, Text, View, StatusBar } from 'react-native';
 
 
-export default function BankSelectPage() {
+export default function PersonalLoan() {
     const navigation = useNavigation();
     const [checked, setChecked] = useState('');
 
-    async function movetoEmploymentDetailsPage(bankNameChecked) {
-        await AsyncStorage.setItem('bankName', bankNameChecked);
-        navigation.navigate('EmploymentDetails')
+    function movetoSalariedPage() {
+        navigation.navigate('SalariedPage')
+    }
+
+    function movetoSelfEmployedBusinessPage() {
+        navigation.navigate('BusinessLoan')
+    }
+
+    function movetoSelfEmployedProfessionalPage() {
+        alert("madhur")
     }
 
     return (
         <View style={styles.container}>
-        <StatusBar backgroundColor="blue" barStyle="light-content" />
+            <StatusBar backgroundColor="blue" barStyle="light-content" />
             <Image
                 style={{ width: '50%', height: '5%', marginLeft: 10 }}
                 source={{
@@ -27,91 +33,47 @@ export default function BankSelectPage() {
             <View style={{ paddingLeft: 20, paddingRight: 20 }}>
                 <View style={{ marginTop: 20 }}>
 
-                    <Image style={{ width: '5%', height: '10%' }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/271/271218.png', }} />
-                    <Text style={{ textAlign: 'right', marginTop: -15 }}><Text style={styles.subHeading}>Step 3/8</Text></Text>
+                    <Text style={styles.subHeading}>PERSONAL LOAN</Text>
+                    <Text style={{ textAlign: 'right', marginTop: -15 }}><Text style={styles.subHeading}>Step 1/8</Text></Text>
 
                     <View style={{ width: '70%', marginTop: 20 }}>
-                        <Text style={styles.mainHeading}>Select your Salary Bank Account</Text>
+                        <Text style={styles.mainHeading}>Select your Employment Type to Start your Loan Process</Text>
                     </View>
 
+                    <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
+                        <View style={{ borderWidth: 1, flexDirection: 'row', padding: 20, marginTop: 10, borderRadius: 10, borderColor: '#D3D3D3' }} onTouchStart={() => (setChecked('first'), movetoSalariedPage())}>
+                            <View style={{ flex: 7.25 }}>
+                                <Text style={styles.radioHeading}>Salaried</Text>
+                                <Text style={styles.radioSubHeading}>Receive fixed amount of income every month</Text>
+                            </View>
+                            <View style={{ flex: 2, height: 10, textAlign: 'center' }}>
+                                <RadioButton.Item label="First item" value="first" />
+                            </View>
+                        </View>
+                        <View style={{ borderWidth: 1, flexDirection: 'row', padding: 20, marginTop: 10, borderRadius: 10, borderColor: '#D3D3D3' }} onTouchStart={() => (setChecked('second'), movetoSelfEmployedBusinessPage())}>
+                            <View style={{ flex: 7.25 }}>
+                                <Text style={styles.radioHeading}>Self Employed Business</Text>
+                                <Text style={styles.radioSubHeading}>Run a business</Text>
+                            </View>
+                            <View style={{ flex: 2, height: 10, textAlign: 'center' }}>
+                                <RadioButton.Item label="Second item" value="second" />
+                            </View>
+                        </View>
+                        <View style={{ borderWidth: 1, flexDirection: 'row', padding: 20, marginTop: 10, borderRadius: 10, borderColor: '#D3D3D3' }} onTouchStart={() => (setChecked('third'), movetoSelfEmployedBusinessPage())}>
+                            <View style={{ flex: 7.25 }}>
+                                <Text style={styles.radioHeading}>Self Employed Professional</Text>
+                                <Text style={styles.radioSubHeading}>Engage in a profession (Eg: Doctor, C.A, etc)</Text>
+                            </View>
+                            <View style={{ flex: 2, height: 10, textAlign: 'center' }}>
+                                <RadioButton.Item label="Third item" value="third" />
+                            </View>
+                        </View>
+                    </RadioButton.Group>
                 </View>
             </View>
-            <View style={{ marginTop: -50 }}>
-                <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
-                    <View style={styles.row}>
-                        <View style={styles.column} onTouchStart={() => (setChecked('hdfc'), movetoEmploymentDetailsPage('hdfc'))}>
-                            <View style={styles.row}>
-                                <View style={{ flex: 11 }}>
-                                    <Text style={styles.radioHeading}><Image style={{ width: 20, height: 20 }} source={{ uri: 'https://www.gurpreetsaluja.com/wp-content/uploads/2020/09/HDFC-LOGO.png', }} /> HDFC</Text>
-                                </View>
-                                <View style={{ flex: 4.5, marginTop: -13, marginLeft: -40 }}>
-                                    <RadioButton.Item value="hdfc" />
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.column} onTouchStart={() => (setChecked('sbi'), movetoEmploymentDetailsPage('sbi'))}>
-                            <View style={styles.row}>
-                                <View style={{ flex: 11 }}>
-                                    <Text style={styles.radioHeading}><Image style={{ width: 20, height: 20 }} source={{ uri: 'https://seeklogo.com/images/S/sbi-logo-744E8B0C10-seeklogo.com.png', }} /> SBI</Text>
-                                </View>
-                                <View style={{ flex: 4.5, marginTop: -13, marginLeft: -40 }}>
-                                    <RadioButton.Item value="sbi" />
-                                </View>
-                            </View>
-                        </View>
-                    </View>
 
-                    <View style={{ marginTop: 40 }}>
-                        <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('icici'), movetoEmploymentDetailsPage('icici'))}>
-                                <View style={styles.row}>
-                                    <View style={{ flex: 11 }}>
-                                        <Text style={styles.radioHeading}><Image style={{ width: 20, height: 20 }} source={{ uri: 'https://companieslogo.com/img/orig/IBN-af38b5c0.png?t=1648383607', }} /> ICICI</Text>
-                                    </View>
-                                    <View style={{ flex: 4.5, marginTop: -13, marginLeft: -40 }}>
-                                        <RadioButton.Item value="icici" />
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('axis'), movetoEmploymentDetailsPage('axis'))}>
-                                <View style={styles.row}>
-                                    <View style={{ flex: 11 }}>
-                                        <Text style={styles.radioHeading}><Image style={{ width: 20, height: 20 }} source={{ uri: 'https://companieslogo.com/img/orig/AXISBANK.BO-8f59e95b.png?t=1672905040', }} /> Axis</Text>
-                                    </View>
-                                    <View style={{ flex: 4.5, marginTop: -13, marginLeft: -40 }}>
-                                        <RadioButton.Item value="axis" />
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={{ marginTop: 40 }}>
-                        <View style={styles.row}>
-                            <View style={styles.column} onTouchStart={() => (setChecked('kotak'), movetoEmploymentDetailsPage('kotak'))}>
-                                <View style={styles.row}>
-                                    <View style={{ flex: 11 }}>
-                                        <Text style={styles.radioHeading}><Image style={{ width: 20, height: 20 }} source={{ uri: 'https://assets-netstorage.groww.in/stock-assets/logos/GSTK500247.png', }} /> Kotak</Text>
-                                    </View>
-                                    <View style={{ flex: 4.5, marginTop: -13, marginLeft: -40 }}>
-                                        <RadioButton.Item value="kotak" />
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={styles.column} onTouchStart={() => (setChecked('yesbank'), movetoEmploymentDetailsPage('yesbank'))}>
-                                <View style={styles.row}>
-                                    <View style={{ flex: 11 }}>
-                                        <Text style={styles.radioHeading}><Image style={{ width: 20, height: 20 }} source={{ uri: 'https://companieslogo.com/img/orig/YESBANK.NS-a31ff15a.png?t=1603312763', }} /> Yes Bank</Text>
-                                    </View>
-                                    <View style={{ flex: 4.5, marginTop: -13, marginLeft: -40 }}>
-                                        <RadioButton.Item value="yesbank" />
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </RadioButton.Group>
-                <Text style={{ textAlign: 'center', color: 'blue', marginTop: 60, fontWeight: 600, textDecorationLine: 'underline', }}>View More</Text>
+            <View style={styles.bottomView}>
+                <Text style={styles.subHeading}>By clicking on proceed, you have read and agreee to the Paisabazaar's Credit Report Terms of Use, Paisabazaar's Terms of Use & Privacy Policy</Text>
             </View>
         </View>
     );
@@ -132,15 +94,9 @@ const styles = StyleSheet.create({
     row: {
         flex: 1,
         flexDirection: 'row',
-        padding: 11,
     },
     column: {
         flex: 1,
-        height: 50,
-        marginHorizontal: 3,
-        borderWidth: 1,
-        borderColor: '#94999D',
-        borderRadius: 10,
     },
     mainHeading: {
         fontSize: 24,
@@ -158,4 +114,19 @@ const styles = StyleSheet.create({
         color: 'blue',
         fontWeight: 500,
     },
+    radioSubHeading: {
+        fontSize: 11,
+        color: 'gray',
+        fontWeight: 500,
+    },
+    bottomView: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#fff',
+        height: 50,
+        paddingHorizontal: 20,
+        marginBottom: 50
+    }
 });
